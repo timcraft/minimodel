@@ -38,15 +38,23 @@ class MiniModel
     end
 
     def primary_key
-      @primary_key ||= :id
+      @primary_key
     end
 
-    def indexed_by(primary_key)
+    def indexed_by(primary_key, options = {})
       @primary_key = primary_key
+
+      @auto_increment = options[:auto_increment] ? 1 : nil
     end
 
-    def insert(*args)
-      object = new(*args)
+    def insert(attributes)
+      unless @auto_increment.nil?
+        attributes[primary_key] = @auto_increment
+
+        @auto_increment += 1
+      end
+
+      object = new(attributes)
 
       pkey = object.send(primary_key)
 
