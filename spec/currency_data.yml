@@ -1,0 +1,8 @@
+EUR:
+  name: Euro
+
+GBP:
+  name: Pound sterling
+
+USD:
+  name: United States dollar
