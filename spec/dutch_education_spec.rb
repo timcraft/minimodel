@@ -45,6 +45,9 @@ class Profile < MiniModel
 end
 
 class Course < ActiveRecord::Base
+  def level
+    @level ||= Level.find(level_name)
+  end
 end
 
 Level.all.each do |level|
@@ -116,6 +119,19 @@ describe 'A profile object' do
     it 'should return the correct level object' do
       @profile.level.must_be_kind_of Level
       @profile.level.name.must_equal 'HAVO'
+    end
+  end
+end
+
+describe 'A course object' do
+  before do
+    @course = Course.find_by_name('VWO/Engels')
+  end
+
+  describe '#level' do
+    it 'should return the correct level object' do
+      @course.level.must_be_kind_of Level
+      @course.level.name.must_equal 'VWO'
     end
   end
 end
