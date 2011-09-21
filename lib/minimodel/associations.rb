@@ -44,6 +44,16 @@ class MiniModel
   end
 
   module AssociationClassMethods
+    def belongs_to(association_name, options = {})
+      define_method(association_name) do
+        target_model = association_name.to_s.classify.constantize
+
+        foreign_key = '%s_%s' % [association_name, target_model.primary_key]
+
+        target_model.find(self.send(foreign_key))
+      end
+    end
+
     def has_many(association_name, options = {})
       define_method(association_name) do
         HasManyAssociation.new(self, association_name, options)

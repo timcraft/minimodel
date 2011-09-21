@@ -26,6 +26,8 @@ end
 class Profile < MiniModel
   indexed_by :id, auto_increment: true
 
+  belongs_to :level
+
   insert level_name: 'VMBO-T', name: 'Techniek'
   insert level_name: 'VMBO-T', name: 'Zorg en Welzijn'
   insert level_name: 'VMBO-T', name: 'Economie'
@@ -101,6 +103,19 @@ describe 'A level object' do
         courses.must_be_kind_of Array
         courses.map(&:name).sort.must_equal @course_names
       end
+    end
+  end
+end
+
+describe 'A profile object' do
+  before do
+    @profile = Profile.find(8)
+  end
+
+  describe '#level' do
+    it 'should return the correct level object' do
+      @profile.level.must_be_kind_of Level
+      @profile.level.name.must_equal 'HAVO'
     end
   end
 end
