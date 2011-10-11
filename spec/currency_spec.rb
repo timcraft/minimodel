@@ -53,6 +53,13 @@ describe 'A currency object' do
       @euro.to_json.must_equal '{"code":"EUR","name":"Euro"}'
     end
   end
+
+  describe '#read_attribute' do
+    it 'should return the value corresponding to the given attribute name' do
+      @euro.read_attribute(:code).must_equal 'EUR'
+      @euro.read_attribute(:name).must_equal 'Euro'
+    end
+  end
 end
 
 describe Currency do
