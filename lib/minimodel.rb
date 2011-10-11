@@ -17,6 +17,10 @@ class MiniModel
     @attributes
   end
 
+  def to_json
+    @attributes.to_json
+  end
+
   def method_missing(symbol, *args, &block)
     if @attributes.has_key?(symbol) && args.empty? && block.nil?
       return @attributes[symbol]

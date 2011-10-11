@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minimodel'
+require 'json'
 
 class Currency < MiniModel
   indexed_by :code
@@ -44,6 +45,12 @@ describe 'A currency object' do
     it 'should return a hash containing the object attributes' do
       @euro.to_hash.must_be_kind_of Hash
       @euro.to_hash.must_equal code: 'EUR', name: 'Euro'
+    end
+  end
+
+  describe '#to_json' do
+    it 'should return a string containing a JSON object' do
+      @euro.to_json.must_equal '{"code":"EUR","name":"Euro"}'
     end
   end
 end
