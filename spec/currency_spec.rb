@@ -15,6 +15,11 @@ describe 'A currency object' do
     @euro = Currency.new(code: 'EUR', name: 'Euro')
   end
 
+  it 'should respond_to?(:code) and respond_to?(:name)' do
+    @euro.respond_to?(:code).must_equal true
+    @euro.respond_to?(:name).must_equal true
+  end
+
   it 'should have attribute reader methods' do
     @euro.code.must_equal 'EUR'
     @euro.name.must_equal 'Euro'

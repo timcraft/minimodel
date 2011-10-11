@@ -25,6 +25,10 @@ class MiniModel
     end
   end
 
+  def respond_to_missing?(symbol, include_private = false)
+    @attributes.has_key?(symbol)
+  end
+
   class DuplicateKeyError < StandardError
   end
 
