@@ -77,8 +77,8 @@ class MiniModel
       index[pkey] = object
     end
 
-    def find(key)
-      index[key]
+    def find(primary_key, &block)
+      index.fetch(primary_key, &block)
     end
 
     def load_from(path)

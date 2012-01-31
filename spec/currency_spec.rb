@@ -93,10 +93,12 @@ describe Currency do
       end
     end
 
-    describe 'when passed an invalid currency code' do
-      it 'should return nil' do
-        Currency.find('FOO').must_be_nil
-      end
+    it 'should raise an error if the currency cannot be found' do
+      proc { Currency.find('FOO') }.must_raise(KeyError)
+    end
+
+    it 'should yield if the currency cannot be found and the caller supplies a block' do
+      Currency.find('FOO') { nil }.must_be_nil
     end
   end
 
