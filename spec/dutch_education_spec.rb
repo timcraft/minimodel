@@ -65,47 +65,21 @@ describe 'A level object' do
     @course_names = %w( VMBO-T/Duits VMBO-T/Engels VMBO-T/Nederlands )
   end
 
-  describe '#profiles' do
-    it 'should be enumerable' do
-      @level.profiles.must_respond_to :each
-      @level.profiles.class.ancestors.must_include Enumerable
-    end
-
-    describe '#size' do
-      it 'should return the number of profiles linked to this level' do
-        @level.profiles.size.must_equal 4
-      end
-    end
-
-    describe '#to_a' do
-      it 'should return an array containing the correct profile objects' do
-        profiles = @level.profiles.to_a
-
-        profiles.must_be_kind_of Array
-        profiles.map(&:name).sort.must_equal @profile_names
-      end
+  describe 'profiles method' do
+    it 'should return an enumerable object with the correct size' do
+      profiles = @level.profiles
+      profiles.must_respond_to(:each)
+      profiles.class.ancestors.must_include(Enumerable)
+      profiles.size.must_equal(4)
     end
   end
 
-  describe '#courses' do
-    it 'should be enumerable' do
-      @level.courses.must_respond_to :each
-      @level.courses.class.ancestors.must_include Enumerable
-    end
-
-    describe '#size' do
-      it 'should return the number of courses linked to this level' do
-        @level.courses.size.must_equal 3
-      end
-    end
-
-    describe '#to_a' do
-      it 'should return an array containing the correct course objects' do
-        courses = @level.courses.to_a
-
-        courses.must_be_kind_of Array
-        courses.map(&:name).sort.must_equal @course_names
-      end
+  describe 'courses method' do
+    it 'should return an enumerable object with the correct size' do
+      courses = @level.courses
+      courses.must_respond_to(:each)
+      courses.class.ancestors.must_include(Enumerable)
+      courses.size.must_equal(3)
     end
   end
 end
@@ -115,10 +89,10 @@ describe 'A profile object' do
     @profile = Profile.find(8)
   end
 
-  describe '#level' do
+  describe 'level method' do
     it 'should return the correct level object' do
-      @profile.level.must_be_kind_of Level
-      @profile.level.name.must_equal 'HAVO'
+      @profile.level.must_be_kind_of(Level)
+      @profile.level.name.must_equal('HAVO')
     end
   end
 end
@@ -128,10 +102,10 @@ describe 'A course object' do
     @course = Course.find_by_name('VWO/Engels')
   end
 
-  describe '#level' do
+  describe 'level method' do
     it 'should return the correct level object' do
-      @course.level.must_be_kind_of Level
-      @course.level.name.must_equal 'VWO'
+      @course.level.must_be_kind_of(Level)
+      @course.level.name.must_equal('VWO')
     end
   end
 end

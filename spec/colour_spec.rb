@@ -9,8 +9,8 @@ class Colour < MiniModel
   insert name: 'Green', hexdigits: '00FF00'
 end
 
-describe Colour do
+describe 'Colour' do
   it 'should assign auto incrementing id values' do
-    Colour.all.map(&:id).must_equal [1, 2, 3]
+    Colour.all.map(&:id).must_equal([1, 2, 3])
   end
 end
