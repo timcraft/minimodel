@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'minimodel'
-  s.version = '0.2.0'
+  s.version = '0.3.0'
   s.platform = Gem::Platform::RUBY
   s.authors = ['Tim Craft']
   s.email = ['mail@timcraft.com']
