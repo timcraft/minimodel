@@ -59,6 +59,10 @@ class MiniModel
       @auto_increment = options[:auto_increment] ? 1 : nil
     end
 
+    def keys
+      all.map(&primary_key)
+    end
+
     def insert(attributes)
       unless @auto_increment.nil?
         attributes[primary_key] = @auto_increment

@@ -65,6 +65,12 @@ describe 'Currency' do
     end
   end
 
+  describe 'keys class method' do
+    it 'should return an array containing all the primary keys' do
+      Currency.keys.must_equal(%w(EUR GBP USD INR JPY))
+    end
+  end
+
   describe 'primary_key class method' do
     it 'should return the primary key specified using #indexed_by' do
       Currency.primary_key.must_equal(:code)
