@@ -16,16 +16,17 @@ Example
 
 Here's how you could implement a currency model using minimodel:
 
-    require 'minimodel'
+```ruby
+require 'minimodel'
 
-    class Currency < MiniModel
-      indexed_by :code
+class Currency < MiniModel
+  indexed_by :code
 
-      insert code: 'EUR', name: 'Euro'
-      insert code: 'GBP', name: 'Pound sterling'
-      insert code: 'USD', name: 'United States dollar'
-    end
-
+  insert code: 'EUR', name: 'Euro'
+  insert code: 'GBP', name: 'Pound sterling'
+  insert code: 'USD', name: 'United States dollar'
+end
+```
 
 The Currency class will respond to `#count` (returning the total number of
 currencies), `#all` (returning an array of currency objects), and `#find`
