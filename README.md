@@ -1,5 +1,11 @@
-Minimodel: A little library for defining little models
-======================================================
+A little library for defining little models
+===========================================
+
+
+Installation
+------------
+
+    $ gem install minimodel
 
 
 Motivation
