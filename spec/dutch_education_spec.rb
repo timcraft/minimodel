@@ -66,7 +66,7 @@ describe 'A level object' do
   end
 
   describe 'profiles method' do
-    it 'should return an enumerable object with the correct size' do
+    it 'returns an enumerable object with the correct size' do
       profiles = @level.profiles
       profiles.must_respond_to(:each)
       profiles.class.ancestors.must_include(Enumerable)
@@ -75,7 +75,7 @@ describe 'A level object' do
   end
 
   describe 'courses method' do
-    it 'should return an enumerable object with the correct size' do
+    it 'returns an enumerable object with the correct size' do
       courses = @level.courses
       courses.must_respond_to(:each)
       courses.class.ancestors.must_include(Enumerable)
@@ -90,7 +90,7 @@ describe 'A profile object' do
   end
 
   describe 'level method' do
-    it 'should return the correct level object' do
+    it 'returns the correct level object' do
       @profile.level.must_be_kind_of(Level)
       @profile.level.name.must_equal('HAVO')
     end
@@ -103,7 +103,7 @@ describe 'A course object' do
   end
 
   describe 'level method' do
-    it 'should return the correct level object' do
+    it 'returns the correct level object' do
       @course.level.must_be_kind_of(Level)
       @course.level.name.must_equal('VWO')
     end
