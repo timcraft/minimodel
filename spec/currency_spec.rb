@@ -7,18 +7,20 @@ class Currency < MiniModel
 
   load_from 'spec/currency_data.yml'
 
-  insert code: 'INR', name: 'Indian rupee'
-  insert code: 'JPY', name: 'Japanese yen'
+  insert :code => 'INR', :name => 'Indian rupee'
+  insert :code => 'JPY', :name => 'Japanese yen'
 end
 
 describe 'A currency object' do
   before do
-    @euro = Currency.new(code: 'EUR', name: 'Euro')
+    @euro = Currency.new(:code => 'EUR', :name => 'Euro')
   end
 
-  it 'should respond_to?(:code) and respond_to?(:name)' do
-    @euro.respond_to?(:code).must_equal(true)
-    @euro.respond_to?(:name).must_equal(true)
+  if Object.new.respond_to?(:respond_to_missing?)
+    it 'should respond_to?(:code) and respond_to?(:name)' do
+      @euro.respond_to?(:code).must_equal(true)
+      @euro.respond_to?(:name).must_equal(true)
+    end
   end
 
   it 'should have attribute reader methods' do
@@ -29,23 +31,26 @@ describe 'A currency object' do
   describe 'eql query method' do
     it 'should return true when passed a currency object with the same attributes' do
       @euro.eql?(@euro).must_equal(true)
-      @euro.eql?(Currency.new(code: 'EUR', name: 'Euro')).must_equal(true)
+      @euro.eql?(Currency.new(:code => 'EUR', :name => 'Euro')).must_equal(true)
     end
 
     it 'should return false when given a currency object with a different code' do
-      @euro.eql?(Currency.new(code: 'GBP', name: 'Pound sterling')).must_equal(false)
+      @euro.eql?(Currency.new(:code => 'GBP', :name => 'Pound sterling')).must_equal(false)
     end
   end
 
   describe 'to_hash method' do
     it 'should return a hash containing the object attributes' do
-      @euro.to_hash.must_equal({code: 'EUR', name: 'Euro'})
+      @euro.to_hash.must_equal({:code => 'EUR', :name => 'Euro'})
     end
   end
 
   describe 'to_json method' do
     it 'should return a string containing a JSON object' do
-      @euro.to_json.must_equal('{"code":"EUR","name":"Euro"}')
+      output = @euro.to_json
+      output.must_match(/\{.+?\}/)
+      output.must_match(/"code":"EUR"/)
+      output.must_match(/"name":"Euro"/)
     end
   end
 
@@ -67,7 +72,10 @@ describe 'Currency' do
 
   describe 'keys class method' do
     it 'should return an array containing all the primary keys' do
-      Currency.keys.must_equal(%w(EUR GBP USD INR JPY))
+      keys = Currency.keys
+      keys.length.must_equal(5)
+
+      %w(EUR GBP USD INR JPY).each { |key| keys.must_include(key) }
     end
   end
 
@@ -93,7 +101,11 @@ describe 'Currency' do
     end
 
     it 'should raise an error if the currency cannot be found' do
-      proc { Currency.find('FOO') }.must_raise(KeyError)
+      if defined?(KeyError)
+        proc { Currency.find('FOO') }.must_raise(KeyError) # 1.9
+      else
+        proc { Currency.find('FOO') }.must_raise(IndexError) # 1.8
+      end
     end
 
     it 'should yield if the currency cannot be found and the caller supplies a block' do
@@ -103,7 +115,7 @@ describe 'Currency' do
 
   describe 'insert class method' do
     it 'should raise an error when passed a key that already exists' do
-      proc { Currency.insert(code: 'EUR', name: 'Euro') }.must_raise(MiniModel::DuplicateKeyError)
+      proc { Currency.insert(:code => 'EUR', :name => 'Euro') }.must_raise(MiniModel::DuplicateKeyError)
     end
   end
 end

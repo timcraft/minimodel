@@ -12,4 +12,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency('activerecord', ['>= 3.0.3'])
   s.add_development_dependency('sqlite3', ['~> 1.3.6'])
   s.require_path = 'lib'
+
+  if RUBY_VERSION == '1.8.7'
+    s.add_development_dependency('minitest', '>= 4.2.0')
+    s.add_development_dependency('json', '>= 1.7.7')
+  end
 end
