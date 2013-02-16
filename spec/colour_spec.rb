@@ -11,6 +11,6 @@ end
 
 describe 'Colour' do
   it 'assigns auto incrementing id values' do
-    Colour.all.map(&:id).must_equal([1, 2, 3])
+    Colour.all.map(&:id).sort.must_equal([1, 2, 3])
   end
 end
