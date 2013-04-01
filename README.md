@@ -1,5 +1,8 @@
-A little library for defining little models
-===========================================
+minimodel
+=========
+
+
+A little library for defining little models.
 
 
 Installation
