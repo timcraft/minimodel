@@ -16,11 +16,9 @@ describe 'A currency object' do
     @euro = Currency.new(:code => 'EUR', :name => 'Euro')
   end
 
-  if Object.new.respond_to?(:respond_to_missing?)
-    it 'responds to code and name methods' do
-      @euro.respond_to?(:code).must_equal(true)
-      @euro.respond_to?(:name).must_equal(true)
-    end
+  it 'responds to code and name methods' do
+    @euro.respond_to?(:code).must_equal(true)
+    @euro.respond_to?(:name).must_equal(true)
   end
 
   it 'provides attribute reader methods' do
@@ -72,10 +70,7 @@ describe 'Currency' do
 
   describe 'keys class method' do
     it 'returns an array containing all the primary keys' do
-      keys = Currency.keys
-      keys.length.must_equal(5)
-
-      %w(EUR GBP USD INR JPY).each { |key| keys.must_include(key) }
+      Currency.keys.must_equal(%w(EUR GBP USD INR JPY))
     end
   end
 
@@ -101,11 +96,7 @@ describe 'Currency' do
     end
 
     it 'raises an error if the currency cannot be found' do
-      if defined?(KeyError)
-        proc { Currency.find('FOO') }.must_raise(KeyError) # 1.9
-      else
-        proc { Currency.find('FOO') }.must_raise(IndexError) # 1.8
-      end
+      proc { Currency.find('FOO') }.must_raise(KeyError) # 1.9
     end
 
     it 'yields if the currency cannot be found and the caller supplies a block' do

@@ -1,10 +1,6 @@
 require 'yaml'
 
 class MiniModel
-  if defined?(id)
-    undef_method :id
-  end
-
   def initialize(attributes)
     @attributes = attributes.to_hash
   end
