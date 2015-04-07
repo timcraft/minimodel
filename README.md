@@ -2,7 +2,7 @@ minimodel
 =========
 
 
-A little library for defining little models.
+A little Ruby library for defining little models.
 
 
 Installation
