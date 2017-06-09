@@ -1,5 +1,7 @@
 # minimodel
 
+[![Gem Version](https://badge.fury.io/rb/minimodel.svg)](https://badge.fury.io/rb/minimodel) [![Build Status](https://api.travis-ci.org/timcraft/minimodel.svg?branch=master)](https://travis-ci.org/timcraft/minimodel)
+
 
 A little Ruby library for defining little models.
 
