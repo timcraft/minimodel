@@ -63,6 +63,12 @@ class MiniModel
       all.map(&primary_key)
     end
 
+    def options(text_attribute)
+      all.each_with_object({}) do |model, hash|
+        hash[model.read_attribute(text_attribute)] = model.read_attribute(primary_key)
+      end
+    end
+
     def insert(attributes)
       unless @auto_increment.nil?
         attributes[primary_key] = @auto_increment

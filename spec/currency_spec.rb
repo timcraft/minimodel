@@ -74,6 +74,20 @@ describe 'Currency' do
     end
   end
 
+  describe 'options class method' do
+    it 'returns a hash mapping the given text attribute to primary keys' do
+      options = {
+        'Euro' => 'EUR',
+        'Pound sterling' => 'GBP',
+        'United States dollar' => 'USD',
+        'Indian rupee' => 'INR',
+        'Japanese yen' => 'JPY'
+      }
+
+      Currency.options(:name).must_equal(options)
+    end
+  end
+
   describe 'primary_key class method' do
     it 'returns the name of the primary key attribute' do
       Currency.primary_key.must_equal(:code)
