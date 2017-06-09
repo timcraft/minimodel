@@ -3,12 +3,12 @@ require 'minimodel'
 require 'minimodel/associations'
 require 'active_record'
 
-ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
 
-ActiveRecord::Schema.define(:version => 1) do
-  create_table :courses, :force => true do |t|
-    t.string :name, :index => true
-    t.string :level_name, :index => true
+ActiveRecord::Schema.define(version: 1) do
+  create_table :courses, force: true do |t|
+    t.string :name, index: true
+    t.string :level_name, index: true
   end
 end
 
@@ -18,30 +18,30 @@ class Level < MiniModel
   has_many :courses
   has_many :profiles
 
-  insert :name => 'VMBO-T'
-  insert :name => 'HAVO'
-  insert :name => 'VWO'
+  insert name: 'VMBO-T'
+  insert name: 'HAVO'
+  insert name: 'VWO'
 end
 
 class Profile < MiniModel
-  indexed_by :id, :auto_increment => true
+  indexed_by :id, auto_increment: true
 
   belongs_to :level
 
-  insert :level_name => 'VMBO-T', :name => 'Techniek'
-  insert :level_name => 'VMBO-T', :name => 'Zorg en Welzijn'
-  insert :level_name => 'VMBO-T', :name => 'Economie'
-  insert :level_name => 'VMBO-T', :name => 'Landbouw'
+  insert level_name: 'VMBO-T', name: 'Techniek'
+  insert level_name: 'VMBO-T', name: 'Zorg en Welzijn'
+  insert level_name: 'VMBO-T', name: 'Economie'
+  insert level_name: 'VMBO-T', name: 'Landbouw'
 
-  insert :level_name => 'HAVO', :name => 'Economie en Maatschappij'
-  insert :level_name => 'HAVO', :name => 'Cultuur en Maatschappij'
-  insert :level_name => 'HAVO', :name => 'Natuur en Gezondheid'
-  insert :level_name => 'HAVO', :name => 'Natuur en Techniek'
+  insert level_name: 'HAVO', name: 'Economie en Maatschappij'
+  insert level_name: 'HAVO', name: 'Cultuur en Maatschappij'
+  insert level_name: 'HAVO', name: 'Natuur en Gezondheid'
+  insert level_name: 'HAVO', name: 'Natuur en Techniek'
 
-  insert :level_name => 'VWO', :name => 'Economie en Maatschappij'
-  insert :level_name => 'VWO', :name => 'Cultuur en Maatschappij'
-  insert :level_name => 'VWO', :name => 'Natuur en Gezondheid'
-  insert :level_name => 'VWO', :name => 'Natuur en Techniek'
+  insert level_name: 'VWO', name: 'Economie en Maatschappij'
+  insert level_name: 'VWO', name: 'Cultuur en Maatschappij'
+  insert level_name: 'VWO', name: 'Natuur en Gezondheid'
+  insert level_name: 'VWO', name: 'Natuur en Techniek'
 end
 
 class Course < ActiveRecord::Base
@@ -52,7 +52,7 @@ end
 
 Level.all.each do |level|
   for course_name in %w( Nederlands Engels Duits )
-    Course.create!(:level_name => level.name, :name => "#{level.name}/#{course_name}")
+    Course.create!(level_name: level.name, name: "#{level.name}/#{course_name}")
   end
 end
 

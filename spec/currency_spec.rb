@@ -7,13 +7,13 @@ class Currency < MiniModel
 
   load_from 'spec/currency_data.yml'
 
-  insert :code => 'INR', :name => 'Indian rupee'
-  insert :code => 'JPY', :name => 'Japanese yen'
+  insert code: 'INR', name: 'Indian rupee'
+  insert code: 'JPY', name: 'Japanese yen'
 end
 
 describe 'A currency object' do
   before do
-    @euro = Currency.new(:code => 'EUR', :name => 'Euro')
+    @euro = Currency.new(code: 'EUR', name: 'Euro')
   end
 
   it 'responds to code and name methods' do
@@ -29,17 +29,17 @@ describe 'A currency object' do
   describe 'eql query method' do
     it 'returns true when passed a currency object with the same attributes' do
       @euro.eql?(@euro).must_equal(true)
-      @euro.eql?(Currency.new(:code => 'EUR', :name => 'Euro')).must_equal(true)
+      @euro.eql?(Currency.new(code: 'EUR', name: 'Euro')).must_equal(true)
     end
 
     it 'returns false when given a currency object with a different code' do
-      @euro.eql?(Currency.new(:code => 'GBP', :name => 'Pound sterling')).must_equal(false)
+      @euro.eql?(Currency.new(code: 'GBP', name: 'Pound sterling')).must_equal(false)
     end
   end
 
   describe 'to_hash method' do
     it 'returns a hash containing the object attributes' do
-      @euro.to_hash.must_equal({:code => 'EUR', :name => 'Euro'})
+      @euro.to_hash.must_equal({code: 'EUR', name: 'Euro'})
     end
   end
 
@@ -120,7 +120,7 @@ describe 'Currency' do
 
   describe 'insert class method' do
     it 'raises an error when passed a key that already exists' do
-      proc { Currency.insert(:code => 'EUR', :name => 'Euro') }.must_raise(MiniModel::DuplicateKeyError)
+      proc { Currency.insert(code: 'EUR', name: 'Euro') }.must_raise(MiniModel::DuplicateKeyError)
     end
   end
 end
