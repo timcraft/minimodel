@@ -26,7 +26,7 @@ class MiniModel
   end
 
   def method_missing(symbol, *args, &block)
-    if @attributes.has_key?(symbol) && args.empty? && block.nil?
+    if @attributes.key?(symbol) && args.empty? && block.nil?
       return @attributes[symbol]
     else
       super symbol, *args, &block
@@ -34,7 +34,7 @@ class MiniModel
   end
 
   def respond_to_missing?(symbol, include_private = false)
-    @attributes.has_key?(symbol)
+    @attributes.key?(symbol)
   end
 
   class DuplicateKeyError < StandardError
@@ -80,7 +80,7 @@ class MiniModel
 
       pkey = object.send(primary_key)
 
-      if index.has_key?(pkey)
+      if index.key?(pkey)
         raise DuplicateKeyError
       end
 
