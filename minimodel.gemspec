@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.authors = ['Tim Craft']
   s.email = ['mail@timcraft.com']
-  s.homepage = 'http://github.com/timcraft/minimodel'
+  s.homepage = 'https://github.com/timcraft/minimodel'
   s.description = 'A little Ruby library for defining little models'
   s.summary = 'See description'
   s.files = Dir.glob('{lib,spec}/**/*') + %w(LICENSE.txt README.md Rakefile minimodel.gemspec)
