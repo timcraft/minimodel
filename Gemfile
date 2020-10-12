@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '>= 12'
-gem 'activerecord', '~> 5'
+gem 'activerecord', '~> 6'
 gem 'minitest'
 gem 'minitest-global_expectations'
 gem 'json', '~> 2'
