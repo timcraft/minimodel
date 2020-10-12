@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'minitest/global_expectations'
 require 'minimodel'
 require 'minimodel/associations'
 require 'active_record'
