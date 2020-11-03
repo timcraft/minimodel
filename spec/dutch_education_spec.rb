@@ -1,5 +1,3 @@
-require 'minitest/autorun'
-require 'minitest/global_expectations'
 require 'minimodel'
 require 'minimodel/associations'
 require 'active_record'
@@ -57,56 +55,48 @@ Level.all.each do |level|
   end
 end
 
-describe 'A level object' do
-  before do
-    @level = Level.find('VMBO-T')
+RSpec.describe 'Level' do
+  let(:level) { Level.find('VMBO-T') }
 
-    @profile_names = ['Economie', 'Landbouw', 'Techniek', 'Zorg en Welzijn']
-
-    @course_names = %w( VMBO-T/Duits VMBO-T/Engels VMBO-T/Nederlands )
-  end
-
-  describe 'profiles method' do
+  describe '#profiles' do
     it 'returns an enumerable object with the correct size' do
-      profiles = @level.profiles
-      profiles.must_respond_to(:each)
-      profiles.class.ancestors.must_include(Enumerable)
-      profiles.size.must_equal(4)
+      profiles = level.profiles
+
+      expect(profiles).to respond_to(:each)
+      expect(profiles.class.ancestors).to include(Enumerable)
+      expect(profiles.size).to eq(4)
     end
   end
 
-  describe 'courses method' do
+  describe '#courses' do
     it 'returns an enumerable object with the correct size' do
-      courses = @level.courses
-      courses.must_respond_to(:each)
-      courses.class.ancestors.must_include(Enumerable)
-      courses.size.must_equal(3)
+      courses = level.courses
+
+      expect(courses).to respond_to(:each)
+      expect(courses.class.ancestors).to include(Enumerable)
+      expect(courses.size).to eq(3)
     end
   end
 end
 
-describe 'A profile object' do
-  before do
-    @profile = Profile.find(8)
-  end
+RSpec.describe 'Profile' do
+  let(:profile) { Profile.find(8) }
 
-  describe 'level method' do
+  describe '#level' do
     it 'returns the correct level object' do
-      @profile.level.must_be_kind_of(Level)
-      @profile.level.name.must_equal('HAVO')
+      expect(profile.level).to be_a(Level)
+      expect(profile.level.name).to eq('HAVO')
     end
   end
 end
 
-describe 'A course object' do
-  before do
-    @course = Course.find_by_name('VWO/Engels')
-  end
+RSpec.describe 'Course' do
+  let(:course) { Course.find_by_name('VWO/Engels') }
 
-  describe 'level method' do
+  describe '#level' do
     it 'returns the correct level object' do
-      @course.level.must_be_kind_of(Level)
-      @course.level.name.must_equal('VWO')
+      expect(course.level).to be_a(Level)
+      expect(course.level.name).to eq('VWO')
     end
   end
 end

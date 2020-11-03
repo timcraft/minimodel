@@ -1,5 +1,3 @@
-require 'minitest/autorun'
-require 'minitest/global_expectations'
 require 'minimodel'
 require 'json'
 
@@ -12,70 +10,72 @@ class Currency < MiniModel
   insert code: 'JPY', name: 'Japanese yen'
 end
 
-describe 'A currency object' do
+RSpec.describe 'Currency' do
   before do
     @euro = Currency.new(code: 'EUR', name: 'Euro')
   end
 
   it 'responds to code and name methods' do
-    @euro.respond_to?(:code).must_equal(true)
-    @euro.respond_to?(:name).must_equal(true)
+    expect(@euro.respond_to?(:code)).to eq(true)
+    expect(@euro.respond_to?(:name)).to eq(true)
   end
 
   it 'provides attribute reader methods' do
-    @euro.code.must_equal('EUR')
-    @euro.name.must_equal('Euro')
+    expect(@euro.code).to eq('EUR')
+    expect(@euro.name).to eq('Euro')
   end
 
-  describe 'eql query method' do
+  describe '#eql?' do
     it 'returns true when passed a currency object with the same attributes' do
-      @euro.eql?(@euro).must_equal(true)
-      @euro.eql?(Currency.new(code: 'EUR', name: 'Euro')).must_equal(true)
+      expect(@euro.eql?(@euro)).to eq(true)
+      expect(@euro.eql?(Currency.new(code: 'EUR', name: 'Euro'))).to eq(true)
     end
 
     it 'returns false when given a currency object with a different code' do
-      @euro.eql?(Currency.new(code: 'GBP', name: 'Pound sterling')).must_equal(false)
+      expect(@euro.eql?(Currency.new(code: 'GBP', name: 'Pound sterling'))).to eq(false)
     end
   end
 
-  describe 'to_hash method' do
+  describe '#to_hash' do
     it 'returns a hash containing the object attributes' do
-      @euro.to_hash.must_equal({code: 'EUR', name: 'Euro'})
+      expect(@euro.to_hash).to eq({code: 'EUR', name: 'Euro'})
     end
   end
 
-  describe 'to_json method' do
+  describe '#to_json' do
     it 'returns a string containing the object attributes encoded as json' do
       output = @euro.to_json
-      output.must_match(/\{.+?\}/)
-      output.must_match(/"code":"EUR"/)
-      output.must_match(/"name":"Euro"/)
+
+      expect(output).to match(/\{.+?\}/)
+      expect(output).to match(/"code":"EUR"/)
+      expect(output).to match(/"name":"Euro"/)
     end
   end
 
-  describe 'read_attribute method' do
+  describe '#read_attribute' do
     it 'returns the value corresponding to the given attribute name' do
-      @euro.read_attribute(:code).must_equal('EUR')
-      @euro.read_attribute(:name).must_equal('Euro')
+      expect(@euro.read_attribute(:code)).to eq('EUR')
+      expect(@euro.read_attribute(:name)).to eq('Euro')
     end
   end
-end
 
-describe 'Currency' do
-  describe 'all class method' do
+  describe '.all' do
     it 'returns an array containing currency objects' do
-      Currency.all.must_be_kind_of(Array)
-      Currency.all.each { |object| object.must_be_kind_of(Currency) }
+      expect(Currency.all).to be_an(Array)
+
+      Currency.all.each do |object|
+        expect(object).to be_a(Currency)
+      end
     end
   end
 
-  describe 'keys class method' do
+  describe '.keys' do
     it 'returns an array containing all the primary keys' do
-      Currency.keys.must_equal(%w(EUR GBP USD INR JPY))
+      expect(Currency.keys).to eq(%w(EUR GBP USD INR JPY))
     end
   end
 
-  describe 'options class method' do
+  describe '.options' do
     it 'returns a hash mapping the given text attribute to primary keys' do
       options = {
         'Euro' => 'EUR',
@@ -85,43 +85,43 @@ describe 'Currency' do
         'Japanese yen' => 'JPY'
       }
 
-      Currency.options(:name).must_equal(options)
+      expect(Currency.options(:name)).to eq(options)
     end
   end
 
-  describe 'primary_key class method' do
+  describe '.primary_key' do
     it 'returns the name of the primary key attribute' do
-      Currency.primary_key.must_equal(:code)
+      expect(Currency.primary_key).to eq(:code)
     end
   end
 
-  describe 'count class method' do
+  describe '.count' do
     it 'returns the total number of currencies' do
-      Currency.count.must_equal(5)
+      expect(Currency.count).to eq(5)
     end
   end
 
-  describe 'find class method' do
+  describe '.find' do
     it 'returns the correct currency object' do
       currency = Currency.find('EUR')
 
-      currency.must_be_kind_of(Currency)
-      currency.code.must_equal('EUR')
-      currency.name.must_equal('Euro')
+      expect(currency).to be_kind_of(Currency)
+      expect(currency.code).to eq('EUR')
+      expect(currency.name).to eq('Euro')
     end
 
     it 'raises an error if the currency cannot be found' do
-      proc { Currency.find('FOO') }.must_raise(KeyError) # 1.9
+      expect { Currency.find('FOO') }.to raise_error(KeyError) # 1.9
     end
 
     it 'yields if the currency cannot be found and the caller supplies a block' do
-      Currency.find('FOO') { nil }.must_be_nil
+      expect(Currency.find('FOO') { nil }).to be_nil
     end
   end
 
-  describe 'insert class method' do
+  describe '.insert' do
     it 'raises an error when passed a key that already exists' do
-      proc { Currency.insert(code: 'EUR', name: 'Euro') }.must_raise(MiniModel::DuplicateKeyError)
+      expect { Currency.insert(code: 'EUR', name: 'Euro') }.to raise_error(MiniModel::DuplicateKeyError)
     end
   end
 end

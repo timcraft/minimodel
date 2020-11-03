@@ -1,5 +1,3 @@
-require 'minitest/autorun'
-require 'minitest/global_expectations'
 require 'minimodel'
 
 class Colour < MiniModel
@@ -10,8 +8,8 @@ class Colour < MiniModel
   insert name: 'Green', hexdigits: '00FF00'
 end
 
-describe 'Colour' do
+RSpec.describe 'Colour' do
   it 'assigns auto incrementing id values' do
-    Colour.all.map(&:id).sort.must_equal([1, 2, 3])
+    expect(Colour.all.map(&:id).sort).to eq([1, 2, 3])
   end
 end
