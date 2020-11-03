@@ -11,4 +11,10 @@ Gem::Specification.new do |s|
   s.files = Dir.glob('lib/**/*.rb') + %w(LICENSE.txt README.md minimodel.gemspec)
   s.required_ruby_version = '>= 1.9.3'
   s.require_path = 'lib'
+  s.metadata = {
+    'homepage' => 'https://github.com/timcraft/minimodel',
+    'source_code_uri' => 'https://github.com/timcraft/minimodel',
+    'bug_tracker_uri' => 'https://github.com/timcraft/minimodel/issues',
+    'changelog_uri' => 'https://github.com/timcraft/minimodel/blob/main/CHANGES.md'
+  }
 end
