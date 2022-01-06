@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.authors = ['Tim Craft']
   s.email = ['mail@timcraft.com']
   s.homepage = 'https://github.com/timcraft/minimodel'
-  s.description = 'A little Ruby library for defining little models'
+  s.description = 'Ruby gem for defining read-only models'
   s.summary = 'See description'
   s.files = Dir.glob('lib/**/*.rb') + %w[CHANGES.md LICENSE.txt README.md minimodel.gemspec]
   s.required_ruby_version = '>= 1.9.3'
