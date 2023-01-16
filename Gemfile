@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rspec-core', '~> 3'
 gem 'rspec-expectations', '~> 3'
-gem 'activerecord', '~> 6'
+gem 'activerecord', '~> 7'
 gem 'json', '~> 2'
 
 platforms :ruby do
